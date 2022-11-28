@@ -1,19 +1,37 @@
 import random
 
-def guess(x):
+def user_guess(x):
     random_number = random.randint(1, x)
     guess = 0
     guess_limit = 3 
     while guess_limit != 0:
         guess = int(input(f"Guess a number between 1 and {x}: "))
         if guess < random_number:
-            print("Sorry guess again - too low! You have " + str(guess_limit) + " guesses left.")
+            print("Sorry guess again - too low! You have " + str(guess_limit - 1) + " guess(es) left.")
         elif guess > random_number:
-            print("Sorry guess again - too high! You have " + str(guess_limit) + " guesses left.")
+            print("Sorry guess again - too high! You have " + str(guess_limit - 1) + " guess(es) left.")
         else:
-            print (f"Your guess was correct! It was {random_number}")
+            print (f"Your guess was correct! It was {random_number}.")
             return
         guess_limit -= 1
-    print(f"Out of guesses, you lose! The number was {random_number}")
+    print(f"Out of guesses, you lose! The number was {random_number}.")
 
-guess(10) 
+def computer_guess(x):
+    low = 1
+    high = x
+    feedback = ''
+    while feedback != 'c':
+        if low != high:
+            guess = random.randint(low, high)
+        else:
+            guess = low 
+        feedback = input(f'Is {guess} too high (H), too low (L), or correct (C)?').lower()
+        if feedback == 'h':
+            high = guess - 1
+        elif feedback == 'l':
+            low = guess + 1
+    print(f'Yay! The computer guessed your number correctly! It was {guess}.')
+
+
+
+computer_guess(100) 
